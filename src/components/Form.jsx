@@ -1,6 +1,6 @@
 const Form = () => {
   return (
-    <div className="w-1/2 lg:w-2/5">
+    <div className="md:w-1/2 lg:w-2/5">
       <h3 className="font-black text-3xl text-center">Patient follow-up</h3>
 
       <p className="text-lg mt-5 text-center mb-10">
