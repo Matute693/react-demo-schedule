@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import Error from './Error';
+import Patient from './Patient';
 
-const Form = ( {patients, setPatients} ) => {
+const Form = ({ patients, setPatients, patient, setPacient }) => {
 
   const [name, setName] = useState('');
   const [owner, setOwner] = useState('');
@@ -10,6 +11,21 @@ const Form = ( {patients, setPatients} ) => {
   const [symptom, setSymptom] = useState('');
 
   const [error, setError] = useState(false);
+
+useEffect(() => {
+  // verifico si el objeto de pacientes tiene data
+    if(Object.keys(patient).length >  0){
+      //Objeto con data
+      setName(patient.name)
+      setOwner(patient.owner)
+      setEmail(patient.email)
+      setDate(patient.date)
+      setSymptom(patient.symptom) 
+    } else {
+      //Objeto vacio
+      // console.log('Objeto vacio')
+    }
+}, [ patient ]);
 
   const generateId = () => {
     let date = Date.now().toString(36);
@@ -38,7 +54,22 @@ const Form = ( {patients, setPatients} ) => {
       symptom,
       id: generateId()
     }
-    setPatients([...patients, objectPatient])
+
+    if(patient.id) {
+      // editando registro
+      objectPatient.id = Patient.id;
+
+      const updatedPatients = patients.map( patientStage => 
+        patientStage.id === patient.id ? objectPatient : patientStage ) 
+
+      setPatients(updatedPatients)
+      setPacient({})
+
+    } else {
+      // nuevo registro
+      objectPatient.id = generateId();
+      setPatients([...patients, objectPatient])
+    }
 
     //Reiniciar el formulario
     setName('')
@@ -134,7 +165,7 @@ const Form = ( {patients, setPatients} ) => {
           <input 
             type="submit" 
             className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-all"
-            value='Add patient'
+            value={ patient.id ? 'Edit patient' : 'Add patient'}
           />
       </form>
     </div>
