@@ -105,7 +105,7 @@ useEffect(() => {
             placeholder="pet's name" 
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
             value={ name } 
-            onChange={ (e) => setName(e.target.value) }
+            onChange={ e => setName(e.target.value) }
             />
         </div>
         
@@ -120,7 +120,7 @@ useEffect(() => {
             placeholder="Owner's name" 
             className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
             value={ owner }
-            onChange={ (e) => setOwner(e.target.value)}
+            onChange={ e => setOwner(e.target.value)}
             />
         </div>
 
